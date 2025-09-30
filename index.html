@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Sonrisa Azul — Odontología Integral</title>
+  <meta name="description" content="Odontología estética y preventiva. Limpieza, ortodoncia, blanqueamiento y urgencias. Agenda tu cita por WhatsApp."/>
+  <meta name="theme-color" content="#2D8EF0"/>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eef7ff',  /* azul muy pastel */
+              100: '#dff0ff',
+              200: '#c7e4ff',
+              300: '#a9d4ff',
+              400: '#7bbcff',
+              500: '#4fa5ff',
+              600: '#2d8ef0',  /* principal */
+              700: '#1e72c7',
+              800: '#155a9e',
+              900: '#0d3a66'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(45, 142, 240, .15)'
+          },
+          keyframes: {
+            float: { '0%,100%':{transform:'translateY(0)'},
+                     '50%':{transform:'translateY(-8px)'} },
+            blob: {
+              '0%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(10px,-10px) scale(1.05)' },
+              '66%': { transform: 'translate(-10px,10px) scale(.98)' },
+              '100%': { transform: 'translate(0,0) scale(1)' }
+            }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            blob: 'blob 16s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+    .btn-gloss{
+      background: linear-gradient(90deg, rgba(255,255,255,.18), rgba(255,255,255,0), rgba(255,255,255,.18));
+      background-size: 200% 100%;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .animate-float,.animate-blob{animation:none!important}
+      .reveal{transition:none!important}
+    }
+  </style>
+</head>
+<body class="bg-white text-neutral-900">
+
+  <!-- FONDO DECORATIVO: ondas y blobs azules -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl animate-blob"></div>
+    <div class="absolute top-48 -right-20 h-80 w-80 rounded-full bg-brand-300/60 blur-3xl animate-blob"></div>
+  </div>
+
+  <!-- Header estilo distinto (logo + acción primaria) -->
+  <header class="bg-white/80 backdrop-blur border-b border-blue-100 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a class="flex items-center gap-3" href="#">
+        <span class="inline-grid place-items-center h-9 w-9 rounded-xl bg-brand-600 text-white shadow-soft animate-float">🦷</span>
+        <span class="font-semibold">Sonrisa Azul</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#servicios" class="hover:text-brand-700">Servicios</a>
+        <a href="#especialidades" class="hover:text-brand-700">Especialidades</a>
+        <a href="#equipo" class="hover:text-brand-700">Equipo</a>
+        <a href="#testimonios" class="hover:text-brand-700">Testimonios</a>
+        <a href="#contacto" class="hover:text-brand-700">Contacto</a>
+        <a id="ctaHeader" href="#" class="relative px-4 py-2 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 shadow-soft">
+          Agenda por WhatsApp
+          <span class="btn-gloss absolute inset-0 rounded-lg"></span>
+        </a>
+      </nav>
+      <button id="menuBtn" class="md:hidden p-2 rounded border border-blue-200" aria-label="Abrir menú">☰</button>
+    </div>
+    <!-- Menú móvil -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-blue-100 bg-white">
+      <nav class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 gap-2 text-sm">
+        <a href="#servicios" class="px-3 py-2 rounded-lg bg-brand-50">Servicios</a>
+        <a href="#especialidades" class="px-3 py-2 rounded-lg bg-brand-50">Especialidades</a>
+        <a href="#equipo" class="px-3 py-2 rounded-lg bg-brand-50">Equipo</a>
+        <a href="#testimonios" class="px-3 py-2 rounded-lg bg-brand-50">Testimonios</a>
+        <a href="#contacto" class="px-3 py-2 rounded-lg bg-brand-50">Contacto</a>
+        <a id="ctaMobile" href="#" class="px-3 py-2 rounded-lg bg-brand-600 text-white">Agendar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO con tarjeta de cita (interfaz diferente al ejemplo anterior) -->
+  <section class="relative">
+    <div class="absolute inset-x-0 -top-24 -z-10 h-72 bg-gradient-to-b from-brand-100 to-white"></div>
+    <div class="max-w-6xl mx-auto px-4 pt-10 pb-6 grid lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2">
+        <h1 class="text-4xl font-semibold leading-tight reveal show">
+          Odontología integral con <span class="text-brand-700">trato humano</span> y tecnología.
+        </h1>
+        <p class="mt-3 text-neutral-700 reveal">
+          Limpiezas, urgencias, ortodoncia, estética y blanqueamiento. Atención para adultos y niños.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3 reveal">
+          <a id="ctaHero" href="#" class="relative px-5 py-3 rounded-xl bg-brand-600 text-white font-medium hover:bg-brand-700 shadow-soft">
+            Agenda por WhatsApp
+            <span class="btn-gloss absolute inset-0 rounded-xl"></span>
+          </a>
+          <a href="#servicios" class="px-5 py-3 rounded-xl border border-blue-200 text-brand-800 hover:bg-brand-50">
+            Ver servicios
+          </a>
+        </div>
+
+        <ul class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <li class="reveal flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand-600"></span> Radiografías en consultorio</li>
+          <li class="reveal flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand-600"></span> Esterilización certificada</li>
+          <li class="reveal flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand-600"></span> Pago con tarjeta</li>
+          <li class="reveal flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand-600"></span> Atención niños y adultos</li>
+        </ul>
+      </div>
+
+      <!-- Tarjeta de cita rápida -->
+      <aside class="reveal lg:col-span-1">
+        <div class="rounded-2xl bg-white border border-blue-100 p-5 shadow-soft">
+          <h3 class="font-semibold">Cita rápida</h3>
+          <p class="text-sm text-neutral-600">Escríbenos y agenda tu evaluación.</p>
+          <form id="quickForm" class="mt-4 grid gap-3">
+            <input name="nombre" required placeholder="Tu nombre" class="w-full px-3 py-2 rounded border border-blue-200 focus:ring-2 focus:ring-brand-500 bg-white"/>
+            <select name="motivo" class="w-full px-3 py-2 rounded border border-blue-200 focus:ring-2 focus:ring-brand-500 bg-white">
+              <option>Limpieza</option><option>Urgencia</option><option>Ortodoncia</option><option>Blanqueamiento</option><option>Control</option>
+            </select>
+            <input name="horario" placeholder="Lun–Vie 9–6 pm" class="w-full px-3 py-2 rounded border border-blue-200 focus:ring-2 focus:ring-brand-500 bg-white"/>
+            <button class="relative px-4 py-2 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 shadow-soft">
+              Enviar por WhatsApp
+              <span class="btn-gloss absolute inset-0 rounded-lg"></span>
+            </button>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+    <!-- separador ondulado -->
+    <svg class="text-brand-50" viewBox="0 0 1440 120" preserveAspectRatio="none" width="100%" height="80">
+      <path fill="currentColor" d="M0,64L48,74.7C96,85,192,107,288,112C384,117,480,107,576,96C672,85,768,75,864,74.7C960,75,1056,85,1152,90.7C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+    </svg>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="bg-brand-50">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-semibold">Servicios</h2>
+      <p class="text-neutral-600 mt-1">Tratamientos para tu salud bucal y estética.</p>
+
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Limpieza y profilaxis</h3>
+          <p class="text-sm text-neutral-600 mt-1">Elimina placa y sarro, prevención de caries y gingivitis.</p>
+          <p class="mt-3 text-brand-700 font-medium">Desde S/ 120</p>
+        </article>
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Ortodoncia</h3>
+          <p class="text-sm text-neutral-600 mt-1">Brackets metálicos y estéticos, alineadores transparentes.</p>
+          <p class="mt-3 text-brand-700 font-medium">Plan a medida</p>
+        </article>
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Blanqueamiento</h3>
+          <p class="text-sm text-neutral-600 mt-1">Apariencia natural y luminosa con técnicas seguras.</p>
+          <p class="mt-3 text-brand-700 font-medium">Promos del mes</p>
+        </article>
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Estética dental</h3>
+          <p class="text-sm text-neutral-600 mt-1">Resinas, carillas y contorneado.</p>
+        </article>
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Endodoncia</h3>
+          <p class="text-sm text-neutral-600 mt-1">Tratamiento de conductos con tecnología rotatoria.</p>
+        </article>
+        <article class="reveal p-6 rounded-2xl border border-blue-100 bg-white hover:shadow-soft transition">
+          <h3 class="font-semibold">Odontopediatría</h3>
+          <p class="text-sm text-neutral-600 mt-1">Atención amable y lúdica para niños.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESPECIALIDADES con layout en “mosaico” -->
+  <section id="especialidades" class="bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-semibold">Especialidades</h2>
+      <div class="mt-6 grid md:grid-cols-3 gap-4">
+        <div class="reveal rounded-2xl overflow-hidden border border-blue-100">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop" class="w-full h-44 object-cover" alt="Ortodoncia"/>
+          <div class="p-4">
+            <h3 class="font-semibold">Ortodoncia</h3>
+            <p class="text-sm text-neutral-600 mt-1">Corrección de maloclusiones y alineación dental.</p>
+          </div>
+        </div>
+        <div class="reveal rounded-2xl overflow-hidden border border-blue-100">
+          <img src="https://www.clinicadentaldeterrassa.com/wp-content/uploads/2019/03/estetica-dental.jpg" class="w-full h-44 object-cover" alt="Estética"/>
+          <div class="p-4">
+            <h3 class="font-semibold">Estética</h3>
+            <p class="text-sm text-neutral-600 mt-1">Carillas, resinas, blanqueamiento.</p>
+          </div>
+        </div>
+        <div class="reveal rounded-2xl overflow-hidden border border-blue-100">
+          <img src="https://grados.uemc.es/hs-fs/hubfs/Blog/Im%C3%A1genes/render-tratamiento-endodoncia.jpg?width=1000&height=699&name=render-tratamiento-endodoncia.jpg" class="w-full h-44 object-cover" alt="Endodoncia"/>
+          <div class="p-4">
+            <h3 class="font-semibold">Endodoncia</h3>
+            <p class="text-sm text-neutral-600 mt-1">Tratamientos conservadores de pieza dental.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO (nueva sección para diferenciar aún más la interfaz) -->
+  <section id="equipo" class="bg-brand-50">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-semibold">Nuestro equipo</h2>
+      <p class="text-neutral-600 mt-1">Profesionales con formación continua.</p>
+
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="reveal p-5 rounded-2xl bg-white border border-blue-100 hover:shadow-soft transition">
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=600&auto=format&fit=crop" class="w-full h-44 object-cover rounded-xl" alt="Odontóloga 1">
+          <h3 class="mt-3 font-semibold">Dr. Juan Peralta</h3>
+          <p class="text-sm text-neutral-600">Ortodoncia · Estética</p>
+        </article>
+        <article class="reveal p-5 rounded-2xl bg-white border border-blue-100 hover:shadow-soft transition">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" class="w-full h-44 object-cover rounded-xl" alt="Odontólogo 2">
+          <h3 class="mt-3 font-semibold">Dra. Amaya Riquelme</h3>
+          <p class="text-sm text-neutral-600">Endodoncia · Rehabilitación</p>
+        </article>
+        <article class="reveal p-5 rounded-2xl bg-white border border-blue-100 hover:shadow-soft transition">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" class="w-full h-44 object-cover rounded-xl" alt="Odontopediatra">
+          <h3 class="mt-3 font-semibold">Dr. Marco León</h3>
+          <p class="text-sm text-neutral-600">Odontopediatría</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS carrusel -->
+  <section id="testimonios" class="bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-semibold">Testimonios</h2>
+        <div class="flex gap-2">
+          <button id="prev" class="h-9 w-9 rounded-full border border-blue-200 hover:bg-brand-50">‹</button>
+          <button id="next" class="h-9 w-9 rounded-full border border-blue-200 hover:bg-brand-50">›</button>
+        </div>
+      </div>
+      <div class="mt-6 overflow-hidden">
+        <div id="track" class="flex gap-4 transition-transform duration-500">
+          <blockquote class="reveal min-w-[80%] md:min-w-[32%] p-5 rounded-2xl bg-brand-50 border border-blue-100">
+            <p>“Fui por una urgencia, me atendieron rápido y con mucho cuidado.”</p>
+            <footer class="mt-3 text-sm text-neutral-500">— Daniela</footer>
+          </blockquote>
+          <blockquote class="reveal min-w-[80%] md:min-w-[32%] p-5 rounded-2xl bg-brand-50 border border-blue-100">
+            <p>“El blanqueamiento quedó natural. Súper recomendados.”</p>
+            <footer class="mt-3 text-sm text-neutral-500">— Pedro</footer>
+          </blockquote>
+          <blockquote class="reveal min-w-[80%] md:min-w-[32%] p-5 rounded-2xl bg-brand-50 border border-blue-100">
+            <p>“Mi hijo ya no teme ir al dentista. Paciencia y buen trato.”</p>
+            <footer class="mt-3 text-sm text-neutral-500">— Rosa</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="bg-brand-50">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl font-semibold">Contacto</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-8">
+        <form id="form" class="reveal p-6 rounded-2xl bg-white border border-blue-100">
+          <div class="grid sm:grid-cols-2 gap-3">
+            <label class="text-sm">Nombre
+              <input name="nombre" required class="mt-1 w-full px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-brand-600 bg-white"/>
+            </label>
+            <label class="text-sm">Motivo
+              <select name="motivo" class="mt-1 w-full px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-brand-600 bg-white">
+                <option>Limpieza</option><option>Urgencia</option><option>Ortodoncia</option>
+                <option>Blanqueamiento</option><option>Control</option><option>Otro</option>
+              </select>
+            </label>
+          </div>
+          <label class="text-sm block mt-3">Horario preferido
+            <input name="horario" placeholder="Lun–Vie 9–6 pm" class="mt-1 w-full px-3 py-2 rounded border border-blue-200 focus:ring-2 focus:ring-brand-600 bg-white"/>
+          </label>
+          <label class="text-sm block mt-3">Mensaje
+            <textarea name="mensaje" rows="4" class="mt-1 w-full px-3 py-2 rounded border border-blue-200 focus:ring-2 focus:ring-brand-600 bg-white"></textarea>
+          </label>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button type="submit" class="relative px-5 py-3 rounded-xl bg-brand-600 text-white font-medium hover:bg-brand-700 shadow-soft">
+              Enviar a WhatsApp
+              <span class="btn-gloss absolute inset-0 rounded-xl"></span>
+            </button>
+            <a href="mailto:contacto@sonrisaazul.com" class="px-5 py-3 rounded-xl border border-blue-200 text-brand-800 hover:bg-brand-50">
+              Enviar por correo
+            </a>
+          </div>
+          <p class="text-xs text-neutral-600 mt-3">Al enviar aceptas el tratamiento de tus datos para contactarte.</p>
+        </form>
+
+        <div class="reveal rounded-2xl overflow-hidden border border-blue-100">
+          <iframe
+            title="Mapa"
+            width="100%" height="360" style="border:0"
+            loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.000000!2d-77.0428!3d-12.0464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sLima!5e0!3m2!1ses-419!2spe!4v1700000000000">
+          </iframe>
+          <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?q=80&w=1200&auto=format&fit=crop" class="w-full h-48 object-cover" alt="Consultorio dental" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-neutral-900 text-neutral-100">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© <span id="year"></span> Sonrisa Azul — Odontología</p>
+      <div class="flex items-center gap-4">
+        <a href="#contacto" class="hover:text-white">Privacidad</a>
+        <a href="#contacto" class="hover:text-white">Términos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a id="ctaFloat" href="#"
+     class="fixed bottom-5 right-5 px-4 py-3 rounded-full bg-brand-600 text-white font-medium shadow-soft hover:bg-brand-700">
+     Agenda por WhatsApp
+     <span class="btn-gloss absolute inset-0 rounded-full"></span>
+  </a>
+
+  <script>
+    // ===== Reemplaza por tu número con código de país, sin "+" =====
+    // Ejemplo Perú: 51 + 9 dígitos
+    const phone = "51999999999";
+
+    function openWhatsApp(extra = {}) {
+      const nombre = extra.nombre || "";
+      const motivo = extra.motivo || "";
+      const horario = extra.horario || "";
+      const mensajeLibre = extra.mensaje || "";
+      const text =
+        `Hola, soy ${nombre || "..."}. Quisiera agendar una cita odontológica.` +
+        (motivo ? `%0A• Motivo: ${motivo}` : "") +
+        (horario ? `%0A• Horario preferido: ${horario}` : "") +
+        (mensajeLibre ? `%0A• Mensaje: ${mensajeLibre}` : "");
+      window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+    }
+
+    // CTAs
+    ["ctaHeader","ctaMobile","ctaHero","ctaFloat"].forEach(id => {
+      const el = document.getElementById(id);
+      el && el.addEventListener("click", e => { e.preventDefault(); openWhatsApp({}); });
+    });
+
+    // Menú móvil
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn?.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+    // Form -> WhatsApp
+    const form = document.getElementById("form");
+    const quickForm = document.getElementById("quickForm");
+    function hook(formEl){
+      formEl?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(formEl);
+        openWhatsApp({
+          nombre: data.get("nombre"),
+          motivo: data.get("motivo"),
+          horario: data.get("horario"),
+          mensaje: data.get("mensaje")
+        });
+      });
+    }
+    hook(form);
+    hook(quickForm);
+
+    // Año dinámico
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Revelado on-scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // Carrusel simple
+    const track = document.getElementById('track');
+    let index = 0;
+    document.getElementById('prev')?.addEventListener('click', () => slide(-1));
+    document.getElementById('next')?.addEventListener('click', () => slide(1));
+    function slide(dir){
+      if(!track) return;
+      const cards = track.children.length;
+      const max = Math.max(0, cards - (window.innerWidth >= 1024 ? 3 : 1));
+      index = Math.min(Math.max(index + dir, 0), max);
+      const cardWidth = track.children[0].getBoundingClientRect().width + 16;
+      track.style.transform = `translateX(${-index * cardWidth}px)`;
+    }
+    window.addEventListener('resize', () => slide(0));
+  </script>
+</body>
+</html>
